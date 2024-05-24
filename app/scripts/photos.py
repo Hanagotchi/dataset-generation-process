@@ -4,8 +4,6 @@ from typing import Optional
 from repository.repository import Repository
 import pandas as pd
 
-# https://firebasestorage.googleapis.com/v0/b/hanagotchi.appspot.com/o/plants%2F32%2F1713821959741?alt=media&token=c3f13738-61ad-4d5a-b38b-470b7c9fdb7e
-
 MILISECONDS = 1000
 
 def get_timestamp_from_photo_link(photo_link: str) -> Optional[datetime]:

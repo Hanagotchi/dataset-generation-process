@@ -1,5 +1,4 @@
 from __future__ import annotations
-
 from sqlalchemy import ForeignKey, Integer, String, TIMESTAMP
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from models.base import Base
@@ -8,7 +7,6 @@ from typing import List
 from os import environ
 
 SCHEMA = environ.get("PLANTS_SCHEMA", 'plants_service')
-
 
 class Log(Base):
     __tablename__ = 'logs'

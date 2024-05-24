@@ -1,17 +1,14 @@
-from sqlalchemy import create_engine, select
+from sqlalchemy import create_engine
 from sqlalchemy.orm import Session
 from dotenv import load_dotenv
 from os import environ
 from models.Log import Log, LogPhoto
-
-from typing import Optional, Sequence
+from typing import Optional
 from datetime import date
-
 from models.measurement import Measurement
 from utils.sql_exception_handling import withSQLExceptionsHandle
 
 load_dotenv()
-
 
 class Repository():
     db_url = environ.get("DATABASE_URL")\

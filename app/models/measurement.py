@@ -6,7 +6,6 @@ from os import environ
 
 SCHEMA = environ.get("MEASUREMENTS_SCHEMA", 'measurements_service')
 
-
 class Measurement(Base):
     __tablename__ = 'measurements'
     __table_args__ = {'schema': SCHEMA}
