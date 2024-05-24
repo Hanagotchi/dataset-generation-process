@@ -31,13 +31,20 @@ class Repository():
         self.session.rollback()
 
     @withSQLExceptionsHandle()
-    def get_all_measurements(self, from_date: Optional[date] = None) -> Sequence[Measurement]:
-        query = select(Measurement)
+    def get_all_measurements(self, from_date: Optional[date] = None):
+        query = self.session.query(Measurement.id,
+                          Measurement.id_plant,
+                          Measurement.plant_type,
+                          Measurement.time_stamp,
+                          Measurement.temperature,
+                          Measurement.humidity,
+                          Measurement.light,
+                          Measurement.watering)
         
         if from_date:
             query = query.where(Measurement.time_stamp >= from_date)
         
-        result = self.session.scalars(query).all()
+        result = query.all()
         return result
     
     @withSQLExceptionsHandle()
@@ -45,6 +52,16 @@ class Repository():
         query = self.session.query(Log.plant_id, LogPhoto.photo_link) \
                             .join(LogPhoto, LogPhoto.log_id == Log.id)
                             
+        if from_date:
+            query = query.filter(Log.created_at >= from_date)
+
+        result = query.all()
+        return result
+    
+    @withSQLExceptionsHandle()
+    def get_all_log_contets(self, from_date: Optional[date] = None) -> list[tuple[int, str]]:
+        query = self.session.query(Log.plant_id, Log.title, Log.content)      
+         
         if from_date:
             query = query.filter(Log.created_at >= from_date)
 

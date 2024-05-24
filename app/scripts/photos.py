@@ -20,5 +20,9 @@ def export_log_photos(repository: Repository, from_date: datetime):
     result = repository.get_all_photo_links(from_date)   
     df = pd.DataFrame(result, columns=["plant_id", "photo_link"])
     df["created_at"] = df['photo_link'].map(get_timestamp_from_photo_link)
-    df.to_csv(f"exports/photos_{str(datetime.now()).replace(':', '-').replace(' ', '_')}", index=False)
-    #return list(map(lambda row: (*row, get_timestamp_from_photo_link(row[1])), result)) 
+    df.to_csv(f"exports/log_photos_{str(datetime.now()).replace(':', '-').replace(' ', '_')}", index=False)
+    
+def export_log_content(repository: Repository, from_date: datetime):
+    result = repository.get_all_log_contets(from_date)   
+    df = pd.DataFrame(result, columns=["plant_id", "title", "content"])
+    df.to_csv(f"exports/log_content_{str(datetime.now()).replace(':', '-').replace(' ', '_')}", index=False)
